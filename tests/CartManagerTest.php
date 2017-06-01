@@ -130,6 +130,16 @@ class CartManagerTest extends Orchestra\Testbench\TestCase
         $this->assertEquals(6, $cartManager->count());
     }
 
+    public function test_if_no_items_count_returns_zero()
+    {
+        $this->setUpEmptyCart();
+        $config = $this->getConfig();
+
+        $cartManager = new CartManager(resolve(SessionManager::class), $config);
+
+        $this->assertSame(0, $cartManager->count());
+    }
+
     // ----------------------------------------------------------------------
 
     protected function getConfig()

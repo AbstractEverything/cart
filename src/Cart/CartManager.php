@@ -204,7 +204,7 @@ class CartManager
             return $item['quantity'];
         })->reduce(function($carry, $item) {
             return $carry + $item;
-        });
+        }, 0);
     }
 
     /**
