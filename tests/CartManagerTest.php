@@ -100,6 +100,16 @@ class CartManagerTest extends Orchestra\Testbench\TestCase
         $this->assertEquals(1250, $cartManager->subtotal());
     }
 
+    public function test_it_calculates_tax()
+    {
+        $this->setUpDummyCart();
+        $config = $this->getConfig();
+
+        $cartManager = new CartManager(resolve(SessionManager::class), $config);
+
+        $this->assertEquals(250, $cartManager->tax());
+    }
+
     public function test_it_calculates_subtotal_with_tax()
     {
         $this->setUpDummyCart();

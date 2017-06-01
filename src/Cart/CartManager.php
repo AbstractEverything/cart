@@ -170,19 +170,27 @@ class CartManager
     }
 
     /**
-     * Add the subtotal with tax for each item
+     * Calculate the total tax of all items in the cart
+     * 
+     * @return integer
+     */
+    public function tax()
+    {
+        return $this->getCartSessionCollection()->map(function($item, $key) {
+            return (($item['price'] * $item['quantity']) / 100) * $this->config->get('cart.tax_rate');
+        })->reduce(function($carry, $item) {
+            return $carry + $item;
+        });
+    }
+
+    /**
+     * Add the subtotal to the tax
      * 
      * @return integer
      */
     public function subtotalWithTax()
     {
-        return $this->getCartSessionCollection()->map(function($item, $key) {
-            return (($item['price'] * $item['quantity']) / 100)
-                * $this->config->get('cart.tax_rate')
-                + ($item['price'] * $item['quantity']);
-        })->reduce(function($carry, $item) {
-            return $carry + $item;
-        });
+        return $this->subtotal() + $this->tax();
     }
 
     /**
