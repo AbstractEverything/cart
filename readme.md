@@ -30,6 +30,25 @@ $cart->add(123abc, 'Grapes', 12.50, 2, [
     'type' => 'seedless',
 ]);
 
+// Add more than one item to the cart
+
+$cart->addMany([
+    [
+        'id' => 'item1',
+        'name' => 'Test item 1',
+        'price' => 123,
+        'quantity' => 1,
+        'options' => [],
+    ],
+    [
+        'id' => 'item2',
+        'name' => 'Test item 2',
+        'price' => 234,
+        'quantity' => 2,
+        'options' => [],
+    ],
+]);
+
 // Find cart item by its id:
 
 $cart->find(123abc);
@@ -41,6 +60,10 @@ $cart->all();
 // Calculate total price of all items:
 
 $cart->subtotal();
+
+// Calculate the total tax of all items:
+
+$cart->tax();
 
 // Calculate total price with tax of all items:
 
